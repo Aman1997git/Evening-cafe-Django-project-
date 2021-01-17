@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+{% load cart %}
+{% load currency %}
+{%  block body %}
+<div class="container">
+<div class="border-rounded p-4 m-4">
+
+
+<h1 class="text-center">My cart</h1>
+<table class="table"  >
+  <thead>
+    <tr>
+      <th scope="col">S.no</th>
+      <th scope="col">Image</th>
+      <th scope="col">Name</th>
+      <th scope="col">category</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Price</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+  {% for products in mycart %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td><img width="30px" src="{{products.image.url}}"></td>
+      <td>{{products.name}}</td>
+      <td>{{products.category}}</td>
+        <td>{{products|product_count:request.session.cart}}</td>
+      <td>{{products|price_count:request.session.cart|currency}}</td>
+
+    </tr>
+
+  {% endfor%}
+
+  </tbody>
+
+  <tfoot>
+    <tr>
+      <th  colspan="3"></th>
+      <th   colspan="">Total</th>
+      <td>{{mycart|total_price_count:request.session.cart|currency}}</td>
+    </tr>
+  </tfoot>
+
+</table>
+
+<div>
+  <form >
+  <a href="/order" type="button" class="btn btn-outline-success float-right" data-bs-toggle="modal" data-bs-target="#exampleModal">
+ place Order
+</a>
+
+</form>
+</div>
+<!-- Button trigger modal -->
+
+   {% for message in messages %}
+  {{message}}
+  {% endfor %}
+</div>
+</div>
+
+{% endblock body %}
