@@ -4,9 +4,10 @@
 {% load cart %}
 {% load currency %}
 {%  block body %}
+
+{% if verify_cart_empty  %}
 <div class="container">
 <div class="border-rounded p-4 m-4">
-
 
 <h1 class="text-center">My cart</h1>
 <table class="table"  >
@@ -29,7 +30,7 @@
       <td><img width="30px" src="{{products.image.url}}"></td>
       <td>{{products.name}}</td>
       <td>{{products.category}}</td>
-        <td>{{products|product_count:request.session.cart}}</td>
+      <td>{{products|product_count:request.session.cart}}</td>
       <td>{{products|price_count:request.session.cart|currency}}</td>
 
     </tr>
@@ -51,17 +52,19 @@
 <div>
   <form >
   <a href="/order" type="button" class="btn btn-outline-success float-right" data-bs-toggle="modal" data-bs-target="#exampleModal">
- place Order
-</a>
-
-</form>
+      place Order
+  </a>
+  </form>
 </div>
-<!-- Button trigger modal -->
-
-   {% for message in messages %}
-  {{message}}
-  {% endfor %}
 </div>
+
+  {% else %}
+
+    {% for message in messages %}
+      {{message}}
+    {% endfor %}
+
+  {% endif %}
 </div>
 
 {% endblock body %}

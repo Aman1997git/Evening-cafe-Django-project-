@@ -22,7 +22,7 @@ class Login(View):
             if password == customer.password:
                 request.session['customer'] = customer.id
                 request.session['customer_name'] = customer.name
-                request.session['customer_username'] = customer.username
+                request.session['customer_email'] = email
                 return redirect('home')
 
             else:

@@ -44,3 +44,9 @@ def total_price_count(items, cart):
         total += int(price_count(item, cart))
 
     return total
+
+
+@register.filter(name='order_price_count')
+def order_price_count(price, quantity):
+
+    return price * quantity

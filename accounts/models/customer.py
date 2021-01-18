@@ -14,6 +14,9 @@ class Customer(models.Model):
     def get_customer_by_email(email):
         return Customer.objects.get(email=email)
 
+    def __str__(self):
+        return self.email
+
     def register(self):
         return self.save()
 

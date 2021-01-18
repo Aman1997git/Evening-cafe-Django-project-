@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block body %}
-<form action="login" method="post">
+<form action="/accounts/login" method="post">
 
     {% csrf_token %}
 
@@ -24,16 +24,11 @@
 </form>
 
 <div class="text-center">
-
-
-
    {% for message in messages%}
 
   {{message}}
 
   {% endfor %}
-
-
 </div>
 
 {% endblock body %}

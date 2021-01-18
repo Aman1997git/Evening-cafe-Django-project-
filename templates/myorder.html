@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+{% load cart %}
+{% load currency %}
+{% block body %}
+
+
+{% if myorders %}
+
+ <div>
+    <h1 class="text-center">My order</h1>
+  </div>
+
+<table class="table"  >
+  <thead>
+    <tr>
+      <th scope="col">S.no</th>
+      <th scope="col">Image</th>
+      <th scope="col">Name</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Price</th>
+      <th scope="col">Price</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+  {% for products in myorders %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td><img width="30px" height="35px" src="{{products.image.url}}"></td>
+      <td>{{products.name}}</td>
+      <td>{{products.quantity}}</td>
+      <td>{{products.price|order_price_count:products.quantity|currency}}</td>
+      {% if products.status %}
+
+      <td><small class="badge badge-success">Completed</small></td>
+      {% else %}
+      <td><small class="badge badge-warning">pending</small></td>
+      {% endif %}
+  {% endfor%}
+    </tr>
+  </tbody>
+
+</table>
+
+
+{% else %}
+
+order list is empty
+
+{% endif %}
+{% endblock body %}

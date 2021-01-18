@@ -10,9 +10,8 @@ class Home(View):
 
         # it will create a cart if cart is not already present
         cart = request.session.get('cart')
-
         if not cart:
-            request.session.cart = {}
+            request.session['cart'] = {}
         # it will check category_id, it will serve item accordingly,
         # if category_id would be available otherwise it will serve all items
         category_id = request.GET.get('category')
@@ -29,7 +28,7 @@ class Home(View):
         item_id = request.POST.get('item_id')
         remove_product = request.POST.get('remove_product')
         cart = request.session.get('cart')
-        print('remove_product', item_id, cart)
+        print(remove_product, item_id, cart)
 
         if cart:
             # it will remove item from cart
