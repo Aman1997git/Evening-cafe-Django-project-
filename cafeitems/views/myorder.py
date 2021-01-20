@@ -6,11 +6,9 @@ from cafeitems.models.orders import Order
 
 class MyOrder(View):
 
-    def get(self, request):
+    # Middleware "auth_middleware" will check whether user is logged in or not before handling "myOrder" method
 
-        if request.session.get('customer_email') is None:
-            messages.info(request, "please signup first")
-            return render(request, 'signup.html')
+    def get(self, request):
 
         customer = request.session.get('customer')
         order_item_list = Order.get_order_items_by_customer_id(customer)

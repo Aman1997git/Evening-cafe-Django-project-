@@ -1,11 +1,16 @@
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.views import View
 from accounts.models.customer import Customer
 
+
 class Login(View):
+    return_link = None
 
     def get(self, request):
+
+        Login.return_link = request.GET.get('return_link')
+        print("tttt", Login.return_link)
         return render(request, 'login.html')
 
     def post(self, request):
@@ -19,11 +24,16 @@ class Login(View):
 
         # validate customer
         if customer:
+
             if password == customer.password:
                 request.session['customer'] = customer.id
                 request.session['customer_name'] = customer.name
                 request.session['customer_email'] = email
-                return redirect('home')
+                print("ttsst", Login.return_link)
+                if Login.return_link:
+                    return HttpResponseRedirect(Login.return_link)
+                else:
+                    return redirect('home')
 
             else:
                 messages.info(request, 'wrong Password')
@@ -32,10 +42,3 @@ class Login(View):
         else:
             messages.info(request, 'customer do not exist')
             return render(request, 'login.html')
-
-
-
-
-
-
-        return render(request, 'home.html')
